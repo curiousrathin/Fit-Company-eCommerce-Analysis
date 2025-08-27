@@ -141,30 +141,6 @@ This analysis reveals that FitCompany has a **customer discovery problem, not a 
 
 **Projected Impact**: Implementation of recommended strategies could generate $47K+ in additional annual revenue while reducing business risk from extreme revenue concentration.
 
-## Repository Structure
 
-- `/sql_queries/` - All analytical SQL queries organized by category
-- `/data/` - Sample datasets and schema files
-- `/dashboard/` - Power BI files and exports
-- `/documentation/` - Technical documentation and methodology notes
 
-## Getting Started
-
-1. Clone the repository
-2. Set up PostgreSQL database using `schema_creation.sql`
-3. Import clean datasets using provided COPY commands
-4. Run analysis queries in numbered order
-5. Import results into Power BI using provided template
-
-## Future Enhancements
-
-- Real-time dashboard integration
-- A/B testing framework for recommendation system
-- Customer lifetime value modeling
-- Advanced seasonal forecasting models
-
----
-
-**Contact**: [Your Contact Information]
-**Last Updated**: [Current Date]
 **License**: MIT
