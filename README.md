@@ -25,6 +25,8 @@ The project utilizes a relational database with four main tables:
 - **Extreme revenue concentration presents significant risk**: The top 10 products generate 87.67% of total revenue, indicating a severe departure from the typical 80/20 distribution
 - **Category-level concentration mirrors product-level findings**: Protein Powders and Pre-Workout categories alone drive approximately 80% of revenue despite representing only 2 of 13 active categories
 
+  <img width="491" height="629" alt="image" src="https://github.com/user-attachments/assets/914000a1-624a-4cda-ac89-a81383115932" />
+
 ### Conversion Funnel Efficiency
 - **Overall session conversion rate of 3.12%** (4,593 converting sessions from 147K total sessions)
 - **Multi-stage funnel reveals optimization opportunities**: 341K product page views → 23.5K cart additions (14.5%) → 4.8K purchases (20.5% cart conversion)
