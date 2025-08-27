@@ -19,6 +19,8 @@ The project utilizes a relational database with four main tables:
 - **orders**: Transactional data with purchase details
 - **fact_interactions**: Website interaction tracking data
 
+- <img width="958" height="850" alt="image" src="https://github.com/user-attachments/assets/cd73df9e-0a92-41c5-bf17-c43a11231e14" />
+
 ## Key Findings
 
 ### Product Portfolio Performance
