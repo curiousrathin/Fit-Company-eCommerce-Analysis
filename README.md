@@ -137,6 +137,10 @@ The Power BI dashboard features:
 - **Seasonal trends** revealing optimization opportunities
 - **Customer segmentation** insights for targeted strategies
 
+### Dashboard Sample
+
+<img width="1551" height="868" alt="image" src="https://github.com/user-attachments/assets/9cab594d-c1e6-4646-9c69-69b6d2efe0e7" />
+
 ## Business Impact
 
 This analysis reveals that FitCompany has a **customer discovery problem, not a product problem**. With 313 products generating only 12% of revenue and uniform conversion rates across categories, the primary opportunity lies in helping customers find relevant products through AI-powered recommendations.
