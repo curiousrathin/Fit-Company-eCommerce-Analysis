@@ -137,7 +137,7 @@ ORDER BY order_num;
 ## Dashboard & Visualizations
 
 The Power BI dashboard features:
-- **Revenue concentration visualization** showing the 87/3 Pareto problem
+- **Revenue concentration visualization** showing the 87/10 Pareto problem
 - **Conversion funnel** with stage-by-stage drop-off analysis
 - **Traffic source performance** with conversion rate comparisons
 - **Seasonal trends** revealing optimization opportunities
