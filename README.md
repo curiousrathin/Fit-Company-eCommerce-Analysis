@@ -19,7 +19,7 @@ The project utilizes a relational database with four main tables:
 - **orders**: Transactional data with purchase details
 - **fact_interactions**: Website interaction tracking data
 
-- <img width="958" height="850" alt="image" src="https://github.com/user-attachments/assets/cd73df9e-0a92-41c5-bf17-c43a11231e14" />
+<img width="958" height="850" alt="image" src="https://github.com/user-attachments/assets/cd73df9e-0a92-41c5-bf17-c43a11231e14" />
 
 ## Key Findings
 
@@ -63,30 +63,6 @@ The project utilizes a relational database with four main tables:
 - **Analysis**: SQL queries, Excel EDA
 - **Visualization**: Power BI Dashboard
 
-### File Structure
-```
-FitCompany_Analytics/
-├── 01_Raw_Data/
-│   ├── fact_interactions.csv
-│   ├── customers.csv
-│   ├── orders.csv
-│   └── products.csv
-├── 02_EDA_and_Cleaning/
-│   ├── 01_raw_data_eda.sql
-│   ├── 02_data_cleaning_transformations.sql
-│   └── 03_post_cleaning_validation.sql
-├── 04_Analysis_Queries/
-│   ├── 01_executive_overview.sql
-│   ├── 02_product_performance.sql
-│   ├── 03_conversion_analysis.sql
-│   ├── 04_traffic_customer_analysis.sql
-│   └── 05_growth_opportunities.sql
-├── 05_Database_Setup/
-│   ├── schema_creation.sql
-│   └── data_import.sql
-└── 06_PowerBI_Outputs/
-    └── dashboard_export.pbix
-```
 
 ## Key SQL Queries
 
@@ -95,8 +71,15 @@ FitCompany_Analytics/
 SELECT 
     p.product_name,
     p.product_category,
+    p.brand,
+    p.product_price,
     COUNT(o.order_number) as times_ordered,
     ROUND(SUM(o.total_value), 2) as total_revenue,
+    ROUND(
+        SUM(o.total_value) * 100.0 / 
+        (SELECT SUM(total_value) FROM orders WHERE total_value IS NOT NULL), 
+        2
+    ) as revenue_percentage,
     ROUND(
         SUM(SUM(o.total_value)) OVER (ORDER BY SUM(o.total_value) DESC ROWS UNBOUNDED PRECEDING) * 100.0 /
         (SELECT SUM(total_value) FROM orders WHERE total_value IS NOT NULL),
@@ -104,29 +87,52 @@ SELECT
     ) as cumulative_percentage
 FROM products p
 LEFT JOIN orders o ON p.product_id = o.product_id
-GROUP BY p.product_id, p.product_name, p.product_category
-ORDER BY total_revenue DESC NULLS LAST;
+GROUP BY p.product_id, p.product_name, p.product_category, p.brand, p.product_price
+ORDER BY total_revenue DESC NULLS LAST
+LIMIT 15;
 ```
+<img width="886" height="314" alt="image" src="https://github.com/user-attachments/assets/b6b47e73-c8d6-45e6-8295-49d7400bdf21" />
+
 
 ### Conversion Funnel Analysis
 ```sql
 SELECT 
     'Product Page Views' as step,
+    1 as order_num,
     (SELECT COUNT(*) FROM fact_interactions WHERE page_type = 'product') as value,
-    100.0 as percentage
+    100.0 as percentage,
+    NULL as conversion_rate
+    
 UNION ALL
+
 SELECT 
     'Added to Cart' as step,
+    2 as order_num,
     (SELECT COUNT(*) FROM fact_interactions WHERE add_to_cart = 'TRUE') as value,
-    ROUND((SELECT COUNT(*) FROM fact_interactions WHERE add_to_cart = 'TRUE') * 100.0 / 
-          (SELECT COUNT(*) FROM fact_interactions WHERE page_type = 'product'), 1) as percentage
+    ROUND(
+        (SELECT COUNT(*) FROM fact_interactions WHERE add_to_cart = 'TRUE') * 100.0 / 
+        (SELECT COUNT(*) FROM fact_interactions WHERE page_type = 'product'), 
+        1
+    ) as percentage,
+    14.5 as conversion_rate  -- Your calculated rate
+    
 UNION ALL
+
 SELECT 
     'Completed Purchase' as step,
+    3 as order_num,
     (SELECT COUNT(*) FROM orders) as value,
-    ROUND((SELECT COUNT(*) FROM orders) * 100.0 / 
-          (SELECT COUNT(*) FROM fact_interactions WHERE page_type = 'product'), 1) as percentage;
+    ROUND(
+        (SELECT COUNT(*) FROM orders) * 100.0 / 
+        (SELECT COUNT(*) FROM fact_interactions WHERE page_type = 'product'), 
+        1
+    ) as percentage,
+    20.5 as conversion_rate  -- Cart to purchase rate
+
+ORDER BY order_num;
 ```
+
+<img width="409" height="89" alt="image" src="https://github.com/user-attachments/assets/23cd7f9c-025c-4781-aa10-073fe3602a0b" />
 
 ## Dashboard & Visualizations
 
